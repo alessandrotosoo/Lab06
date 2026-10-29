@@ -83,9 +83,31 @@ class View:
 
             # Sezione 3
             # TODO
-
+            ft.Row(
+                controls=[
+                    ft.Text("Strumenti", size=20),
+                    ft.Button("Mostra")
+                ]
+            ),
+            ft.Row(
+                height = 120,
+            ),
+            ft.Divider(),
             # Sezione 4
             # TODO
+            ft.Row(
+                spacing=200,
+                controls=[ft.Text("Cerca Strumento per tipo", size=20)],
+                alignment=ft.MainAxisAlignment.CENTER
+            ),
+            ft.Row(
+                controls=[
+                    ft.TextField(''),
+                    ft.Button(
+                        content = 'Cerca'
+                    )
+                ]
+            )
         )
 
     def cambia_tema(self, e):
