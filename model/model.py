@@ -36,6 +36,23 @@ class DepositoStrumenti:
             :return: una lista con tutti gli strumenti presenti oppure None
         """
         # TODO
+        lista_strumenti_2 = []
+        cnx=get_connection()
+        if cnx is not None:
+            cursor=cnx.cursor()
+            query='SELECT * FROM STRUMENTO'
+            cursor.execute(query)
+
+            for riga in cursor:
+                # Creiamo l'oggetto Strumento con i campi del database
+                s = Strumento(riga[0], riga[1], riga[2], riga[3], riga[4], riga[5])
+                lista_strumenti_2.append(s)
+            cursor.close()
+            cnx.close()
+
+        return lista_strumenti_2
+
+
 
     def cerca_strumenti_per_tipo(self, tipo) -> list[Strumento] | None:
         """
@@ -44,3 +61,11 @@ class DepositoStrumenti:
             :return: una lista con tutti gli strumenti del tipo indicato oppure None
         """
         # TODO
+        lista_strumenti_ricerca = []
+        tutti = self.get_strumenti()
+        if tutti is not None:
+            for s in tutti:
+                if s.tipo.lower() == tipo.lower():
+                    lista_strumenti_ricerca.append(s)
+
+        return lista_strumenti_ricerca

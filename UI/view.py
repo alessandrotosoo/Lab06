@@ -1,10 +1,13 @@
 import flet as ft
+from flet import TextField, MainAxisAlignment
 from UI.alert import AlertManager
 
 '''
     VIEW:
-    - Rappresenta l'interfaccia utente
-    - Riceve i dati dal MODELLO e li presenta senza modificarli
+- Rappresenta l'interfaccia utente
+
+- Riceve i dati dal MODELLO e li presenta senza modificarli
+
 '''
 
 class View:
@@ -26,6 +29,7 @@ class View:
         self.txt_responsabile = None
 
         # Non obbligatorio mettere già qui tutti gli elementi UI
+        self.page.scroll = 'auto'
 
     def show_alert(self, messaggio):
         self.alert.show_alert(messaggio)
@@ -64,6 +68,32 @@ class View:
 
         # Altri Pulsanti da implementare (es. "Mostra" e "Cerca")
         # TODO
+        self.testo_Strumenti_sezione_3 = ft.Text('Strumenti', size=20)
+        self.bottone_mostra_sezione_3 = ft.Button(
+            'Mostra',
+            on_click=self.controller.funzione_tasto_mostra_sezione_3
+        )
+        self.riga_sezione_3 = ft.Row(
+            controls=[self.testo_Strumenti_sezione_3, self.bottone_mostra_sezione_3],
+            alignment=ft.MainAxisAlignment.START
+        )
+        self.seconda_riga_sezione_3 = ft.Container(content=self.lista_strumenti, height=120)
+
+        self.testo_cerca_strumento_per_tipo_sezione_4 = ft.Text('Cerca Strumenti per Tipo', size=20)
+        self.prima_riga_sezione_4 = ft.Row(
+            spacing=200,
+            controls=[self.testo_cerca_strumento_per_tipo_sezione_4],
+            alignment=ft.MainAxisAlignment.CENTER
+        )
+        self.bottone_cerca_sezione_4 = ft.Button(
+            'Cerca',
+            on_click=self.controller.funzione_tasto_cerca_sezione_4
+        )
+        self.seconda_riga_sezione_4 = ft.Row(
+            controls=[self.input_tipo_strumento, self.bottone_cerca_sezione_4],
+            alignment=ft.MainAxisAlignment.CENTER
+        )
+        self.terza_riga_sezione_4 = ft.Container(content=self.lista_strumenti_ricerca, height=120)
 
         # --- LAYOUT ---
         self.page.add(
@@ -83,31 +113,15 @@ class View:
 
             # Sezione 3
             # TODO
-            ft.Row(
-                controls=[
-                    ft.Text("Strumenti", size=20),
-                    ft.Button("Mostra")
-                ]
-            ),
-            ft.Row(
-                height = 120,
-            ),
+            self.riga_sezione_3,
+            self.seconda_riga_sezione_3,
             ft.Divider(),
+
             # Sezione 4
             # TODO
-            ft.Row(
-                spacing=200,
-                controls=[ft.Text("Cerca Strumento per tipo", size=20)],
-                alignment=ft.MainAxisAlignment.CENTER
-            ),
-            ft.Row(
-                controls=[
-                    ft.TextField(''),
-                    ft.Button(
-                        content = 'Cerca'
-                    )
-                ]
-            )
+            self.prima_riga_sezione_4,
+            self.seconda_riga_sezione_4,
+            self.terza_riga_sezione_4
         )
 
     def cambia_tema(self, e):
